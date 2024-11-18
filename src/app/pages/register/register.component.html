@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 d-flex flex-column align-items-center justify-content-center" >
+            <div class="card mb-3 p-4 card-register">
+                <div class="card-body">
+                    
+                    <div class="col-lg-12">
+                        <h4 class="mb-3">Registrando un nuevo usuario</h4>
+                        <form class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="fullName" class="form-label">Nombre y Apellidos</label>
+                                    <div class="input-group has-validation">
+                                        <a class="input-group-text"><i class="bi bi-person-vcard"></i></a> 
+                                        <!-- <i class="bi bi-alphabet-uppercase"></i> -->
+                                        <input type="text" class="form-control" id="fullName" placeholder="Nombre y Apellidos" value="{{this.fullNema}}">
+                                    </div>                                    
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="username" class="form-label">Nombre de usuario</label>
+                                    <div class="input-group has-validation">
+                                      <a class="input-group-text"><i class="bi bi-at"></i></a>
+                                      <input type="text" class="form-control" id="username" placeholder="Username" required value="{{this.userName}}" (blur)="onValidUserName()">
+                                      @if (this.isValidUsername){
+                                        <div class="my-invalid-feedback">
+                                            EL nombre de usuario no es correcto. Este valos es requerido.
+                                        </div>
+                                    }
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="firstName" class="form-label">Emtre contraseña</label>
+                                    <input type="password" class="form-control" id="firstName" placeholder="" value="{{this.password_1}}">
+                                    @if (this.isValidUsername){
+                                        <div class="my-invalid-feedback">
+                                            No coinciden las contraseñas.
+                                        </div>
+                                    }
+                                    
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="lastName" class="form-label">Confirma contraseña</label> <!--blur para cuando pierde el foco el componente-->
+                                    <input type="password" class="form-control" id="lastName" placeholder="" value="{{this.password_2}}" (blur)="onValidPassword()">
+                                    @if (this.isValidUsername){
+                                        <div class="my-invalid-feedback">
+                                            No coinciden las contraseñas.
+                                        </div>
+                                    }
+                                </div>
+                                
+                                <!-- <div class="col-12">
+                                    <app-input-required [InvalidFeedback]="true" [Comentario]="'Carlos Luis Perez'" ></app-input-required>
+                                </div> -->
+
+                                <hr class="my-4">
+                                <div class="row g-1">
+
+                                    @for (item of this.rolesChecked; track $index) {
+                                        <div class="col-sm-6">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="{{item.name}}" (change)="this.onChange(item.name)" [checked]="false">
+                                                <label class="form-check-label" for="{{item.name}}">{{item.name}}</label>
+                                            </div>
+                                        </div>
+                                    }
+                                    
+                                    <hr class="my-4">
+                                    <div class="contenedor-result">
+                                        <button type="submit" class="btn btn-primary btn-result">Aceptar</button>
+                                        <button type="button" class="btn btn-danger btn-result">Cancelar</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

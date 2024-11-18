@@ -1,0 +1,169 @@
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" >
+            <div class="card mb-3 p-4 card-register">
+              <!-- <div class="card-header">
+
+              </div> -->
+
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                      <tr>
+                        <th scope="col">CI</th> <!--Carnet de Identidad-->
+                        <th scope="col">Nombres y Apellidos</th> <!---->
+                        <th scope="col">Fecha</th><!--Fechas de incrpción-->
+                        <th scope="col">Teléfono</th> <!---->
+                        <th scope="col">Acciones</th>
+                      </tr>
+                      <tr>
+                        <th class="col-vertical-align"><input style="width: 8em;" type="text"></th>
+                        <th class="col-vertical-align"><input type="text"></th>
+                        <th class="col-vertical-align"><input type="date"></th>
+                        <th class="col-vertical-align"><input type="tel" (keypress)="validateFormat($event)"></th>
+                        <th class="col-acciones">
+                          <button type="button" class="btn btn-primary btn-action bi bi-search"></button>
+                          <!--<button type="button" class="btn btn-primary btn-action" (click)="this.addCliente()" >Add</button>-->
+                          <button type="button" class="btn btn-primary btn-action bi bi-person-add" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+                        </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @for (item of this.clientes; track $index) {
+                      <tr>
+                        
+                        <th class="col-vertical-align">{{item.ci}}</th>
+                        <td class="col-vertical-align">{{item.cliente}}</td>
+                        <td class="col-vertical-align">{{this.toDate(item.createdDate)}}</td>
+                        <td class="col-vertical-align">{{item.telefono}}</td>
+                        @if (this.checkedRole(["Administrador", "E_CajaExtra"])) {
+                          <th class="col-acciones">
+                            <button type="button" class="btn btn-primary btn-action" (click)="this.editCliente(item.keyId)"><i class="bi bi-pencil"></i></button>
+                            <button type="button" class="btn btn-danger btn-action" (click)="this.deleteCliente(item.keyId)"><i class="bi bi-trash"></i></button>
+                          </th>
+                        }
+                        @else {
+                          <th>
+                            <!-- <button type="button" class="btn btn-primary btn-action" disabled><i class="bi bi-pencil"></i></button>
+                            <button type="button" class="btn btn-danger btn-action" disabled><i class="bi bi-trash"></i></button> -->
+                          </th>
+                        }                              
+                        
+                      </tr>
+                    }                              
+                     
+                  </tbody>
+                </table>
+
+                <div>
+                  <div class="paginacion" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group me-2" role="group" aria-label="First group">
+                      <button type="button" class="btn btn-primary" title="Primera página" (click)="this.firstPage()">
+                        <span aria-hidden="true">&laquo;</span>
+                      </button>
+                      <button type="button" class="btn btn-primary" title="Página anterio" (click)="this.previutPage()">
+                        <span aria-hidden="true">&laquo;</span>
+                      </button>
+                      
+                      @for (item of this.pageShow; track $index) {
+                        @if (item.active) {
+                          <button type="button" class="btn btn-primary active" style="min-width: 45px;" (click)="this.setCurrentPage(item.pageNumber)">{{item.text}}</button>
+                        }
+                        @else {
+                          <button type="button" class="btn btn-primary" style="min-width: 45px;" (click)="this.setCurrentPage(item.pageNumber)">{{item.text}}</button>
+                        }
+                      }                         
+
+                      <button type="button" class="btn btn-primary" title="Proxima página" (click)="this.nextPage()">
+                        <span aria-hidden="true">&raquo;</span>
+                      </button>
+                      <button type="button" class="btn btn-primary" title="Ultima página" (click)="this.lastPage()">
+                        <span aria-hidden="true">&raquo;</span>
+                      </button>
+                    </div>
+                    
+                    <div class="btn-group">
+                      <div class="dropdown">
+                        <button class="btn dropdown-toggle btn-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          @if(this.pageSizeCaption == -1){ Todo }
+                          @else { {{this.pageSizeCaption}} }                           
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <button class="dropdown-item" (click)="this.setPageSize(10)">
+                              @if(this.pageSizeCaption == 10){ <b>10</b> }
+                              @else { 10 }
+                            </button>
+                          </li>
+                          <li>
+                            <button class="dropdown-item" (click)="this.setPageSize(50)">
+                              @if(this.pageSizeCaption == 50){ <b>50</b> }
+                              @else { 50 }
+                            </button>
+                          </li>
+                          <li>
+                            <button class="dropdown-item" (click)="this.setPageSize(100)">
+                              @if(this.pageSizeCaption == 100){ <b>100</b> }
+                              @else { 100 }
+                            </button>
+                          </li>
+                          <li>
+                            <button class="dropdown-item" (click)="this.setPageSize(200)">
+                              @if(this.pageSizeCaption == 200){ <b>200</b> }
+                              @else { 200 }
+                            </button>
+                          </li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li>
+                            <button class="dropdown-item" (click)="this.setPageSize(-1)">
+                              @if(this.pageSizeCaption == -1){ <b>Todo</b> }
+                              @else { Todo }
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>                  
+                </div>
+
+              </div>
+             
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Cliente caja extra</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body mt-3 mb-4">
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+            <input type="text" class="form-control" placeholder="CI" [(ngModel)]="this.ci">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-at"></i></span>
+            <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="this.cliente">            
+          </div>
+          <!-- <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+            <input type="date" class="form-control" placeholder="Fecha" [(ngModel)]="this.createdDate">
+          </div> -->
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+            <input type="tel" class="form-control" placeholder="Teléfono" [(ngModel)]="this.telefono">
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="this.addCliente()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
