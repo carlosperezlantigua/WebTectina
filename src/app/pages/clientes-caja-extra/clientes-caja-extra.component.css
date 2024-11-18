@@ -1,0 +1,48 @@
+.container1 {
+    max-width: 960px;
+  }
+  
+.card-register{
+  box-shadow: 0 5px 20px #2221;
+  border: none;
+  border-radius: 10px;
+}
+
+.my-invalid-feedback {
+  /* display: none; */
+  width: 100%;
+  margin-top: .25rem;
+  font-size: .875em;
+  color: var(--bs-form-invalid-color);
+}
+
+.contenedor-result{
+  text-align: end;
+}
+
+.btn-result{
+  margin: 5px;
+}
+
+.btn-action{
+  margin: 0 2px 0 2px;
+}
+
+.card-body{
+  overflow-x:scroll;
+}
+
+.col-acciones{
+  display: flex;
+  flex-direction: row;
+}
+
+.paginacion{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.col-vertical-align{
+  vertical-align: middle;
+}
